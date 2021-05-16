@@ -5,6 +5,8 @@ export const Insert = ({customers,setCustomers}) => {
     const [name,setName] = useState('')
     const [phone,setPhone] = useState('')
     const [amount,setAmount] = useState('')
+    const [message,setMessage] = useState(false)
+    
 
     // const handleSubmit = () => {
     //     if (name && phone && amount){
@@ -27,18 +29,27 @@ export const Insert = ({customers,setCustomers}) => {
     return (
         <div>
             <h1>Make Order</h1>
-            <form onSubmit = {(e)=>{
+            <form className="form" onSubmit = {(e)=>{
                 e.preventDefault()
+                if (!name || !phone || !amount){
+                    setMessage(true)
+                    return
+                }
+                
                 postOrder()
                 
             }}>
                 <label>Name</label>
-                <input type='text' value={name} onChange={(e)=>setName(e.target.value)}/>
+                <input type='text' placeholder='Enter text...' value={name} onChange={(e)=>setName(e.target.value)} />
+                {(message && !name) && <p style={{color:'red'}}>Please enter name...</p>}
                 <label>Phone Number</label>
-                <input type='text' value={phone} onChange={(e)=>setPhone(e.target.value)}/>
+                <input type='text' placeholder='Enter number...' value={phone} onChange={(e)=>setPhone(e.target.value)}/>
+                {(message && !phone) && <p style={{color:'red'}}>Please enter phone number...</p>}
                 <label>Amount</label>
-                <input type='text' value={amount} onChange={(e)=>setAmount(e.target.value)}/>
-                <input type='submit' value={'Add'}/>
+                <input type='text' placeholder='Enter amount...' value={amount} onChange={(e)=>setAmount(e.target.value)}/>
+                {(message && !amount) && <p style={{color:'red'}}>Please enter amount...</p>}
+                <input className='add' type='submit' value={'Add'}/>
+                {message && <p style={{color:'red'}}>Please fill necessary fields...</p>}
             </form>
         </div>
     )
