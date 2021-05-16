@@ -27,7 +27,7 @@ function ChildApp() {
     axios.get('/api/v1/customers').then((response)=>{
       setCustomers(response.data.data)
     })
-  })
+  },[])
   // const fetch = aysnc () => {
   //   try {
   //     setCustomers()
